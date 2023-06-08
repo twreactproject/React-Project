@@ -1,65 +1,24 @@
 import { Component } from "react";
 import { Card,CardBody, CardTitle, CardSubtitle,CardText,Button,Row,Col } from "reactstrap";
-export default class NewList extends Component{
+import {connect} from "react-redux"
+import { bindActionCreators } from "redux";
+import * as newsActions from "../../redux/actions/newsActions";
+class NewList extends Component{
+  componentDidMount(){
+    this.props.actions.getNews();
+  }
     render(){
-      const items = [
-        {
-          image: 'https://picsum.photos/id/123/1200/400',
-          name: 'Başlık',
-          description: 'Açıklamaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          key: 1,
-          source:"Cumhuriyet",
-          url:''
-        },
-        {
-          image: 'https://picsum.photos/id/456/1200/400',
-          name: 'Başlık',
-          description: 'Açıklama',
-          key: 2,
-          source:"Milliyet",
-          url:''
-        },
-        {
-          image: 'https://picsum.photos/id/678/1200/400',
-          name: 'Başlık',
-          description: 'Açıklama',
-          key: 3,
-          source:"Sabah",
-          url:''
-        },
-        {
-          image: 'https://picsum.photos/id/123/1200/400',
-          name: 'Başlık',
-          description: 'Açıklamaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          key: 1,
-          source:"Cumhuriyet",
-          url:''
-        },
-        {
-          image: 'https://picsum.photos/id/456/1200/400',
-          name: 'Başlık',
-          description: 'Açıklama',
-          key: 2,
-          source:"Milliyet",
-          url:''
-        },
-        {
-          image: 'https://picsum.photos/id/678/1200/400',
-          name: 'Başlık',
-          description: 'Açıklama',
-          key: 3,
-          source:"Sabah",
-          url:''
-        },
-      ];
+      
         return(
             <div>
                 <h1>New List</h1>
                 <Row>
-    {items.map((news)=>(<Col className="col-4 mt-4"><Card className="w-100"
+    {this.props.news.map((news)=>(<Col className="col-4 mt-4">
+      <Card className="w-100"
   style={{
     width: '18rem'
   }}
+  key={news.key}
 >
   <img
     alt="Sample"
@@ -87,3 +46,19 @@ export default class NewList extends Component{
         )
         }
 }
+
+function mapStateToProps(state){
+  return {
+      news:state.newsReducer,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return{
+      actions:{
+          getNews:bindActionCreators(newsActions.getNews,dispatch),
+      }
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(NewList)
