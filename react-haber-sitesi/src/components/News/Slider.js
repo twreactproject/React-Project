@@ -60,7 +60,7 @@ function Slider(args) {
       <CarouselItem
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
-        key={item.src}
+        key={item.key}
       >
         <img src={item.image} alt={item.name} />
         <CarouselCaption
