@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-export default class Media extends Component{
+class Media extends Component{
     render(){
         return(
             <div className="media">
@@ -9,3 +9,5 @@ export default class Media extends Component{
         )
         }
 }
+
+export default Media
