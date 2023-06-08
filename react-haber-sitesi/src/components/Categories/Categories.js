@@ -1,8 +1,14 @@
 import React ,{Component} from "react";
 import { ListGroup, ListGroupItem,Badge } from "reactstrap";
-export default class Categories extends Component {
+import * as categoryActions from "../../redux/actions/categoryActions"
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+ class Categories extends Component {
     state={
         currentCategory:"Milliyet"
+    }
+    componentDidMount(){
+        this.props.actions.getCategory();
     }
     selectCategory=(category)=>{
         this.setState({currentCategory:category.name});
@@ -21,7 +27,7 @@ export default class Categories extends Component {
                  <div>
             <h2><Badge color="warning w-100">Haberler</Badge></h2>
             <ListGroup>
-                {categories.map((category)=>(
+                {this.props.categories.map((category)=>(
                     <ListGroupItem active={category.name===this.state.currentCategory?true:false}
                     onClick={()=>this.selectCategory(category)}
                     key={category.source}>
@@ -34,3 +40,19 @@ export default class Categories extends Component {
         )
     }
 }
+
+function mapStateToProps(state){
+    return {
+        categories:state.categoriesReducer,
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return{
+        actions:{
+            getCategory:bindActionCreators(categoryActions.getCategory,dispatch),
+        }
+    }
+  }
+  
+  export default connect(mapStateToProps,mapDispatchToProps)(Categories)
