@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Card,CardBody, CardTitle, CardSubtitle,CardText,Button,Row,Col } from "reactstrap";
+import { Card,CardBody, CardTitle, CardSubtitle,CardText,Button,Row,Col, CardFooter } from "reactstrap";
 import {connect} from "react-redux"
 import { bindActionCreators } from "redux";
 import * as newsActions from "../../redux/actions/newsActions";
@@ -16,30 +16,29 @@ class NewList extends Component{
     {this.props.news.map((news)=>(<Col className="col-4 mt-4">
       <Card className="w-100"
   style={{
-    width: '18rem'
+    width: '18rem', height: '30rem'
   }}
   key={news.key}
 >
   <img
     alt="Sample"
     src={news.image}
+    style={{height: "200px"}}
   />
   <CardBody>
     <CardTitle tag="h5">
       {news.name}
     </CardTitle>
-    <CardSubtitle
-      className="mb-2 text-muted"
-      tag="h6"
-    >
-      {news.name}
-    </CardSubtitle>
+   
     <CardText>
     {news.description.length>37?(news.description.substring(0,37)+"..."):news.description}
     </CardText>
-    <Button>
-      Detay
-    </Button>
+      <CardFooter>
+        <Button>
+        Detay
+        </Button>
+      </CardFooter>
+    
   </CardBody>
 </Card></Col>
 ))} </Row>            </div>
