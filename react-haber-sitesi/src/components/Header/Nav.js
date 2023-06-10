@@ -1,57 +1,21 @@
-import React, { useState } from 'react';
-import {
-  Nav,
-  NavItem,
-  Dropdown,
-  DropdownItem,
-  DropdownToggle,
-  DropdownMenu,
-  NavLink,
-} from 'reactstrap';
+import React, { Component } from 'react';
 
-function Example(props) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+class Nav extends Component {
+  render() {
 
-  const toggle = () => setDropdownOpen(!dropdownOpen);
+    return (
 
-  return (
-    <Nav tabs justified className='transparent-nav-tabs'>
-      <NavItem>
-        <NavLink href="#" >
-          Gündem
-        </NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink href="#">
-          Son Dakika
-        </NavLink>
-      </NavItem>
-    
-      <NavItem>
-        <NavLink href="#">
-          İş İlanları
-        </NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink href="#">
-          Kayıp İlanları
-        </NavLink>
-      </NavItem>
-      <Dropdown nav isOpen={dropdownOpen} toggle={toggle}>
-        <DropdownToggle nav caret>
-          Giriş Yap/Kaydol
-        </DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem>Giriş Yap</DropdownItem>
-          <DropdownItem divider />
-          <DropdownItem>Kaydol</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-     
-     
       
-    </Nav>
-  );
+      <nav style={{height:'130px', backgroundColor: 'red', padding: '10px', display: 'flex', justifyContent: 'space-between' }}>
+
+      <button style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', padding: '10px 20px', margin: '0 5px', border: 'none', borderRadius: '5px' }}>Gündem</button>
+      <button style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', padding: '10px 20px', margin: '0 5px', border: 'none', borderRadius: '5px' }}>Son Dakika</button>
+      <button style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', padding: '10px 20px', margin: '0 5px', border: 'none', borderRadius: '5px' }}>İş İlanları</button>
+      <button style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', padding: '10px 20px', margin: '0 5px', border: 'none', borderRadius: '5px' }}>Kayıp İlanları</button>
+      <button style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', padding: '10px 20px', margin: '0 5px', border: 'none', borderRadius: '5px' }}>Giriş Yap/Kaydol</button>
+      </nav>
+    );
+  }
 }
 
-export default Example;
+export default Nav;

@@ -1,8 +1,6 @@
-
 import Login from "../Login/Login";
 import NewsDetail from "../News/NewsDetail";
 import {Route,Routes} from "react-router-dom"
-
 
 function App() {
   return (
@@ -17,3 +15,5 @@ function App() {
 }
 
 export default App;
+
+
