@@ -45,11 +45,13 @@ class Login extends Component {
               <label htmlFor="email">E-posta:</label>
               <input type="email" id="email" name="email" className='form-control' value={email} onChange={this.handleInputChange} />
             </div>
+            <br />
             <div>
               <label htmlFor="password">Şifre:</label>
               <input type="password" id="password" name="password" className='form-control' value={password} onChange={this.handleInputChange} />
             </div>
-            <button type="submit">Giriş Yap</button>
+            <br/>
+            <button type="submit" className='btn btn-primary'>Giriş Yap</button>
             {error && <p>{error}</p>}
           </form>
             </CardBody>
