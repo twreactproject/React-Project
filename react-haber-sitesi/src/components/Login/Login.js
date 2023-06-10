@@ -1,79 +1,81 @@
-import React, { Component } from 'react'
-import {FormGroup, Form, Input, Label, Button, Card,CardHeader, CardBody, CardFooter} from 'reactstrap'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../../redux/actions/userActions';
+import Dashboard from '../root/Dashboard'
+import { Card,CardBody, CardFooter, CardHeader } from 'reactstrap';
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
 
-export default class Login extends Component {
+  handleInputChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
 
-    state = {
-        username:"",
-        password:"",
-
-    }
-    handleSubmit = (event) => {
-
-        event.preventDefault();
-        
-     }
-     onChangeHandler = (event) => {
-       let name = event.target.name;
-       let value = event.target.value;
-       this.setState({[name]: value})
-     }
+  handleLogin = (event) => {
+    event.preventDefault();
+    const { email, password } = this.state;
+    this.props.login(email, password);
+  };
 
   render() {
+    const { currentUser, error } = this.props;
+    const { email, password } = this.state;
+
     return (
       <div>
-        <center>
-        <Card className='w-50' style={{marginTop:"80px"}}>
+        {currentUser ? (
+          <Dashboard/>
+        ) : (
+          <div className='row' style={{marginTop:"100px"}}>
+<div className='col-6 offset-3'>
+<Card className='w-100'>
             <CardHeader>
-     <h3 style={{textAlign:"center"}}>Giriş Yap</h3>
+              <h2>Giriş Yap</h2>
             </CardHeader>
             <CardBody>
-            <Form onSubmit={this.handleSubmit}>
-  <FormGroup>
-    <Label for="username">
-        Kullanıcı adınız veya E-mail adresiniz
-    </Label>
-    <Input
-      id="username"
-      name="username"
-      placeholder="Kullanıcı adınız veya E-mail adresiniz"
-      type="text"
-      onChange={this.onChangeHandler}
-    />
-  </FormGroup>
-  <FormGroup>
-    <Label for="password">
-        Password
-    </Label>
-    <Input
-      id="password"
-      name="password"
-      placeholder="Şifreniz"
-      type="password"
-      onChange={this.onChangeHandler}
-    />
-  </FormGroup>
-  <FormGroup check>
-    <Input type="checkbox" />
-    {' '}
-    <Label check>
-      Beni Hatırla
-    </Label>
-  </FormGroup>
-  <Button>
-    Submit
-  </Button>
-  <FormGroup>
-    <h3><a href='#'>Hesabınız yok mu? Hemen Oluşturalım</a></h3>
-  </FormGroup>
-</Form>
+            <form onSubmit={this.handleLogin}>
+            <div>
+              <label htmlFor="email">E-posta:</label>
+              <input type="email" id="email" name="email" className='form-control' value={email} onChange={this.handleInputChange} />
+            </div>
+            <div>
+              <label htmlFor="password">Şifre:</label>
+              <input type="password" id="password" name="password" className='form-control' value={password} onChange={this.handleInputChange} />
+            </div>
+            <button type="submit">Giriş Yap</button>
+            {error && <p>{error}</p>}
+          </form>
             </CardBody>
             <CardFooter>
-
+              <p>Hoş Geldiniz!</p>
             </CardFooter>
-        </Card>
-        </center>
+          </Card>
+</div>
+          </div>
+          
+          
+        )}
       </div>
-    )
+    );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    currentUser: state.userReducer.currentUser,
+    error: state.userReducer.error,
+  };
+}
+
+const mapDispatchToProps = {
+  login,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

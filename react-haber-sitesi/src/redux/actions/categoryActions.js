@@ -19,7 +19,7 @@ export function getCategory (categories) {
                     var data=[]
                     
                     result.result.forEach((x)=>{
-                        if(!data.some(y=>y.source==x.source))
+                        if(!data.some(y=>y.source===x.source))
                         data.push({name:x.source,source:x.source})
                     })
                     dispatch(getCategorySuccess(data))})

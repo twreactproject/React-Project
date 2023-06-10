@@ -1,23 +1,32 @@
-import * as actionTypes from './ActionTypes'
+import * as actionTypes from './ActionTypes';
 
-export function getUserSuccess(news) {
-    return { type: actionTypes.LOGIN, payload:news}
+export function loginSuccess(user) {
+  return { type: actionTypes.LOGIN_SUCCESS, payload: user };
 }
 
-export function login(email, password) {
-    let url="http://localhost:3000/users"
-   
-    return function (dispatch) {
-        fetch(url)
-        .then((response)=>response.json())
-            .then((result) =>{ 
-                var user = result.find(x=>(x.email === email || x.username ===email) && x.password === password)
-                dispatch(getUserSuccess(user))})
-    }
+export function loginFailure(error) {
+  return { type: actionTypes.LOGIN_FAILURE, payload: error };
 }
 
 export function logout() {
-    return function (dispatch) {
-    dispatch(getUserSuccess({}))
+  return { type: actionTypes.LOGOUT };
+}
+
+export function login(email, password) {
+  return function (dispatch) {
+    var url="http://localhost:3000/users";
+    fetch(url)
+    .then(response => response.json())
+    .then(data =>{
+    var user=data.find(x=>x.email === email && x.password === password);
+    if(user)
+        dispatch(loginSuccess(user));
+    else
+    {
+        const error = 'Geçersiz e-posta veya şifre';
+        dispatch(loginFailure(error));
+        alert(error);
+    }
+  });
 }
 }
